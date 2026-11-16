@@ -3,6 +3,7 @@ function enter(){
 	return trim(fgets(STDIN));
 }
 class prankCall{
+	private $number;
 	public function __construct($no){
 		$this->number = $no;
 	}
@@ -79,7 +80,7 @@ class prankCall{
 		$data = "abcdefghijklmnopqrstuvwxyz1234567890";
 		$word = "";
 		for($a=0;$a<$l;$a++){
-			$word .= $data{rand(0,strlen($data)-1)};
+			$word .= $data[rand(0,strlen($data)-1)];
 		}
 		return $word;
 	}
