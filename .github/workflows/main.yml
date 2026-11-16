@@ -26,16 +26,5 @@ jobs:
           extensions: curl, mbstring
           coverage: none
 
-      - name: Verify PHP Syntax and File Name
-        run: |
-          if [ -f "fakeCall.php" ]; then
-            php -l fakeCall.php
-          else
-            echo "Error: fakeCall.php not found!"
-            exit 1
-          fi
-
-      - name: Execute OTP Automation Script
-        run: |
-          # تشغيل السكريبت وإرسال خيار 'n' (عدم الدخول في حلقة تكرارية طويلة) لتجنب تعليق الـ Workflow
-          printf "n\n+628123456789\n" | php fakeCall.php
+      - name: Verify PHP Syntax
+        run: php -l fakeCall.php
