@@ -1,0 +1,44 @@
+name: OTP Automation Workflow
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  run-otp-automation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP Environment
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: curl, mbstring
+          coverage: none
+
+      - name: Verify PHP Syntax and File Name
+        run: |
+          # التحقق من وجود الملف الحقيقي fakeCall.php وفحص صيغته
+          if [ -f "fakeCall.php" ]; then
+            echo "File fakeCall.php found successfully."
+            php -l fakeCall.php
+          else
+            echo "Error: fakeCall.php not found!"
+            exit 1
+          fi
+
+      - name: Execute OTP Automation Script
+        run: |
+          echo "Starting automated OTP script execution..."
+          # تشغيل الملف الحقيقيfakeCall.php وإرسال المدخلات تلقائياً
+          printf "y\n1\n0\n+628123456789\n" | php fakeCall.php
